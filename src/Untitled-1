@@ -1,0 +1,7 @@
+  } else if( sensorValue > 200 && sensorValue > pastSensorValue) {
+      fillStrip(0, sensorValueMapped);
+    } else if( sensorValue < 100 ) {
+      unfillStrip(sensorValue, sensorValue);
+    } else {
+      blink();
+    }

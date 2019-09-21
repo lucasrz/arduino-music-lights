@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "/Users/lucasrz/Documents/PlatformIO/Projects/audio input"
+		},
+		{
+			"path": "/Users/lucasrz/Documents/PlatformIO/Projects/Rtest"
+		}
+	],
+	"settings": {
+		"terminal.integrated.env.osx": {
+			"PATH": "/Users/lucasrz/.platformio/penv/bin:/Users/lucasrz/.platformio/penv:/Users/lucasrz/bin:/Users/lucasrz/Library/Python/3.7/bin:/Users/lucasrz/google-cloud-sdk/bin:/Users/lucasrz/.nvm/versions/node/v9.2.0/bin:/Library/Frameworks/Python.framework/Versions/3.7/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+			"PLATFORMIO_CALLER": "vscode"
+		}
+	}
+}

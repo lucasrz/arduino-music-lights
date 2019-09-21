@@ -17,6 +17,7 @@ boolean blinkState = false;
 int outputValue = 0;
 int pastSensorValue = 0;
 int sensorValueMapped = 0;
+boolean isFilled = false;
 
 
 void setPixel(int Pixel, byte red, byte green, byte blue)
@@ -168,51 +169,72 @@ void loop()
 {
   int sensorValue;
 
-  for (int i = 1; i <= 50; i++)
+  for (int i = 0; i < 100; i++)
   {
     sensorValue = analogRead(A0);
+    sensorValue = sensorValue * 2;
     // sensorValueMapped = map(sensorValue, 0, 450, 0, 300);
-    sensorValueMapped = random(1, 300);
-    if( sensorValue > 350 && sensorValue != pastSensorValue ) {
-        switch(random(1,6)) {
+    if( sensorValue  >= 350  && sensorValue != pastSensorValue) {
+        Serial.write("beat");
+        sensorValueMapped = random(1, 300);
+        switch(random(1,8)) {
           case 1: 
             sendOne(0, sensorValueMapped + random(0, 100), false);
+              isFilled = true;
             break;
           case 2: 
             sendRandom(0, sensorValueMapped + random(0, 100), false);
+              isFilled = true;
           break;
           case 3: 
             sendMany(0, sensorValueMapped + random(0, 100), false);
+              isFilled = true;
           break;
           case 4: 
             sendOne(300, sensorValueMapped - random(0, 100), true);
+              isFilled = true;
           break;
           case 5: 
             sendRandom(300, sensorValueMapped - random(0, 100), true);
+              isFilled = true;
           break;
           case 6: 
             sendMany(300, sensorValueMapped - random(0, 100), true);
+              isFilled = true;
           break;
-        }
-        blink();
-      } else if( sensorValue > 200 && sensorValue > pastSensorValue) {
-        int n =random(1,3);
-        Serial.print(n);
-        switch(n) {
-          case 1: 
+           case 7: 
             fillStrip(0, sensorValueMapped);
+              isFilled = true;
           break;
-          case 2:
+           case 8: 
             fillBackwards(300, sensorValueMapped);
+              isFilled = true;
           break;
         }
-      } else if( sensorValue < 100 ) {
-        unfillStrip(sensorValue, sensorValue);
-      } else {
+        isFilled = false;
         blink();
-    }
-    pastSensorValue = sensorValue;
+      } else if( sensorValue > 150 && sensorValue > pastSensorValue) {
+        blink();
+        Serial.write("weak");
+        if(isFilled == false) {
+          int n =random(1,3);
+          Serial.println(n);
+          switch(n) {
+            case 1: 
+              fillStrip(0, sensorValueMapped);
+              isFilled = true;
+            break;
+            case 2:
+              fillBackwards(300, sensorValueMapped);
+              isFilled = true;
+            break;
+          }
+        } else {
+          blink();
+        }
+      } 
   }
+    pastSensorValue = sensorValue;
 }
 
 void setup()
